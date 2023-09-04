@@ -1,8 +1,0 @@
-type BtcusdtPriceHistory {
-  cost: Int
-}
-
-type Query {
-  BtcusdtPriceHistory: [BtcusdtPriceHistory!]!
-  BtcusdtPriceHistory(id: Int!): BtcusdtPriceHistory
-}

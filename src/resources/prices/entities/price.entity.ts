@@ -9,14 +9,18 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity()
-export class BtcusdtPriceHistory {
+export class Price {
   @Field()
   @PrimaryGeneratedColumn()
   public id: number;
 
   @Field()
+  @Column({ type: "float" })
+  public price: number;
+
+  @Field()
   @Column()
-  public cost: number;
+  public currency: string;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
@@ -27,8 +31,10 @@ export class BtcusdtPriceHistory {
   public updatedAt: Date;
 
   constructor(
-    cost: number,
+    currency: string,
+    price: number,
   ) {
-    this.cost = cost;
+    this.currency = currency;
+    this.price = price;
   }
 }

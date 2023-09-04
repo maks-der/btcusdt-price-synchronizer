@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { BtcusdtPriceHistoryModule } from './btcusdt-price-history/btcusdt-price-history.module';
-import { BtcusdtPriceHistory } from './btcusdt-price-history/entities/btcusdt-price-history.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { CronService } from './services/cron.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { Price } from './resources/prices/entities/price.entity';
+import { PricesModule } from './resources/prices/prices.module';
 config();
 
 @Module({
@@ -17,7 +19,7 @@ config();
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities: [
-        BtcusdtPriceHistory
+        Price
       ],
       synchronize: true,
     }),
@@ -27,7 +29,9 @@ config();
       typePaths: ['./**/*.graphql'],
       autoSchemaFile: 'src/schema.gql',
     }),
-    BtcusdtPriceHistoryModule
+    ScheduleModule.forRoot(),
+    PricesModule,
   ],
+  providers: [CronService]
 })
 export class AppModule {}
