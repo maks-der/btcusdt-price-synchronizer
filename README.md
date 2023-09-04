@@ -1,1 +1,1 @@
-# btcusdt-price-synchronizer
+# BTCUSDT price synchronizer

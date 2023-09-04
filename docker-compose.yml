@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: price-synchronizer
+    image: postgres
+    environment:
+      POSTGRES_DB: "price-synchronizer"
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "secret"
+    ports:
+      - "5432:5432"
