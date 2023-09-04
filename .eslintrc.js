@@ -1,31 +1,34 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: 'tsconfig.json',
+    project: "tsconfig.json",
     tsconfigRootDir: __dirname,
-    sourceType: 'module',
+    sourceType: "module"
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ["@typescript-eslint/eslint-plugin"],
   extends: [
-    'plugin:@typescript-eslint/recommended',
+    "plugin:@typescript-eslint/recommended"
   ],
   root: true,
   env: {
     node: true,
-    jest: true,
+    jest: true
   },
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: [".eslintrc.js"],
   rules: {
-    '@typescript-eslint/explicit-function-return-type': 'error',
-    '@typescript-eslint/explicit-module-boundary-types': 'error',
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/explicit-member-accessibility': ['error', {'accessibility': 'explicit'}],
-    'max-len': ['error', {
-      'code': 120,
-      'ignoreUrls': true,
-      'ignoreComments': true,
-      'ignoreStrings': true,
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/explicit-member-accessibility": ["error", {
+      "accessibility": "explicit",
+      "overrides": { "constructors": "no-public" }
     }],
-    'semi': ['error', 'always']
-  },
+    "max-len": ["error", {
+      "code": 120,
+      "ignoreUrls": true,
+      "ignoreComments": true,
+      "ignoreStrings": true
+    }],
+    "semi": ["error", "always"]
+  }
 };
