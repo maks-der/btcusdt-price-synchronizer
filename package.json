@@ -2,9 +2,8 @@
   "name": "btcusdt-price-synchronizer",
   "version": "0.0.1",
   "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "author": "Maksym Derevianchenko",
+  "license": "MIT",
   "scripts": {
     "build": "nest build",
     "start": "nest start",
