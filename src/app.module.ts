@@ -1,12 +1,14 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { GraphQLModule } from '@nestjs/graphql';
+import { join } from 'path';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { CronService } from './services/cron.service';
+import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { PassportModule } from '@nestjs/passport';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CronService } from './services/cron.service';
 import { Price } from './resources/prices/entities/price.entity';
 import { PricesModule } from './resources/prices/prices.module';
-import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from './resources/users/users.module';
 import { AuthModule } from './resources/auth/auth.module';
 import { User } from './resources/users/entities/user.entity';
@@ -37,6 +39,9 @@ const configService = new ConfigService();
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     ScheduleModule.forRoot(),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+    }),
     AuthModule,
     PricesModule,
     UsersModule,
@@ -44,4 +49,5 @@ const configService = new ConfigService();
   providers: [CronService, ConfigService],
   exports: [PassportModule],
 })
-export class AppModule {}
+export class AppModule {
+}

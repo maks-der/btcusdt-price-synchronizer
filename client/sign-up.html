@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="./styles/index.css">
+</head>
+<body>
+<div class="container">
+    <h2>Register form</h2>
+    <form id="login-form">
+        <div class="neumorphic-input">
+            <input type="text" id="fullName" placeholder="Full Name" required>
+        </div>
+        <div class="neumorphic-input">
+            <input type="email" id="email" placeholder="Email" required>
+        </div>
+        <div class="neumorphic-input">
+            <input type="password" id="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="neumorphic-button">Sign up</button>
+    </form>
+
+    <a href="/">
+        <button class="signup-button">Sign in</button>
+    </a>
+</div>
+
+<script src="./scripts/graphql-fetch.js"></script>
+<script src="./scripts/register-fn.js"></script>
+<script src="./scripts/sign-up.js"></script>
+
+</body>
+</html>

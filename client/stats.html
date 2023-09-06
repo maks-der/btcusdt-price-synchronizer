@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <link rel="stylesheet" href="./styles/stats.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center">
+        <h2>History</h2>
+        <h3>BTCUSDT</h3>
+    </div>
+    <p style="display: flex; justify-content: end;">$<span id="current"></span></p>
+    <canvas id="line-chart"></canvas>
+</div>
+
+<script src="./scripts/graphql-fetch.js"></script>
+<script src="./scripts/get-data-fn.js"></script>
+<script src="./scripts/stats.js"></script>
+
+</body>
+</html>

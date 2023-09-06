@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 10px 10px 20px #bcbcbc, -10px -10px 20px #ffffff;
+}
+
+h2 {
+    color: #333;
+}
+
+.neumorphic-input {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 10px #bcbcbc, inset -5px -5px 10px #ffffff;
+    font-size: 16px;
+    outline: none;
+}
+
+.neumorphic-button {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.neumorphic-button:hover {
+    background-color: #e0e0e0;
+}
+
+.signup-button {
+    background-color: #add8e6; /* Light blue color */
+    color: #333; /* Dark text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px #b0c4d9, -5px -5px 10px #a3d2f2;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.signup-button:hover {
+    background-color: #a3d2f2; /* Lighter shade on hover */
+}
+
+.sign-green-button {
+    background-color: #8de969; /* Light green color */
+    color: #333; /* Dark text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px #7fb959, -5px -5px 10px #9ce385;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.sign-green-button:hover {
+    background-color: #9ce385; /* Lighter shade on hover */
+}
