@@ -5,6 +5,8 @@ import { EntityManager } from 'typeorm';
 import { Price } from '../resources/prices/entities/price.entity';
 import { CurrencyPrice } from '../utils/types';
 import { ConfigService } from './config.service';
+import { CreatePriceDto } from '../resources/prices/dto/create-price.dto';
+
 
 @Injectable()
 export class CronService {
@@ -25,11 +27,11 @@ export class CronService {
       for (const currencyPrice of currencyPrices) {
         const [currency, price] = Object.entries(currencyPrice)[0];
 
-        await this.entityManager.save(Price, new Price(currency, price));
+        await this.entityManager.save(Price, new CreatePriceDto(currency, price));
         console.log(`[${new Date().toLocaleString()}] Currency: ${currency} - price: $${price}`);
       }
     } catch (error) {
-      console.error('Error:', error.message);
+      console.error(`Error: ${error.message}`);
     }
   }
 

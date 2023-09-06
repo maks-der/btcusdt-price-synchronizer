@@ -29,12 +29,4 @@ export class Price {
   @Field()
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   public updatedAt: Date;
-
-  constructor(
-    currency: string,
-    price: number,
-  ) {
-    this.currency = currency;
-    this.price = price;
-  }
 }

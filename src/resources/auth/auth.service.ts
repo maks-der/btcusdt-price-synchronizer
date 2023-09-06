@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { AccessToken } from './dto/access-token.dto';
 import { CreateUserDto } from '../users/dto/create-user.dto';
@@ -14,11 +15,6 @@ export class AuthService {
   ) {
   }
 
-  public async returnValidUser(email: string, pass: string): Promise<User | null> {
-    const user = await this.usersService.findByEmail(email);
-    return (user && user.password === pass) ? user : null;
-  }
-
   public async login(email: string, pass: string): Promise<AccessToken> {
     const user = await this.returnValidUser(email, pass);
     if (!user) throw new UnauthorizedException();
@@ -27,9 +23,17 @@ export class AuthService {
   }
 
   public async register(fullName: string, email: string, pass: string): Promise<AccessToken> {
-    await this.usersService.create(new CreateUserDto(fullName, email, pass));
+    const password = await bcrypt.hash(pass, 10);
+    await this.usersService.create(new CreateUserDto(fullName, email, password));
 
     return this.createToken({ fullName, email });
+  }
+
+  private async returnValidUser(email: string, pass: string): Promise<User | null> {
+    const user = await this.usersService.findByEmail(email);
+    if (!user) return null;
+    const isPassValid = await bcrypt.compare(pass, user.password);
+    return isPassValid ? user : null;
   }
 
   private createToken(payload: ITokenPayload): AccessToken {

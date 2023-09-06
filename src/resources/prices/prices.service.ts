@@ -9,7 +9,6 @@ export class PricesService {
   }
 
   // TODO: add period
-  // TODO: fix error when table empty
   public async history(currency: string): Promise<Price[]> {
     return this.entityManager.find(Price, { where: { currency: currency } });
   }
