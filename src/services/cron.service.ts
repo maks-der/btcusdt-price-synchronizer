@@ -1,21 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import Binance from 'binance-api-node';
 import { EntityManager } from 'typeorm';
 import { Price } from '../resources/prices/entities/price.entity';
-import { cronCurrencies } from '../utils/constants';
 import { CurrencyPrice } from '../utils/types';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class CronService {
+  private readonly cronCurrencies: string[] = [];
 
-  constructor(private readonly entityManager: EntityManager) {
+  constructor(
+    private readonly entityManager: EntityManager,
+    configService: ConfigService,
+  ) {
+    this.cronCurrencies = this.parseCurrencies(configService.get('CURRENCIES'));
   }
 
-  @Cron('* 1 * * * *')
-  // @Cron('* * * * * *')
+  @Cron(CronExpression.EVERY_MINUTE)
   public async handleCron(): Promise<void> {
-
     try {
       const currencyPrices = await this.getPrices();
 
@@ -32,14 +35,19 @@ export class CronService {
 
   private async getPrices(): Promise<CurrencyPrice[]> {
     const binance = Binance();
-    const promises = [];
+    const promises: Promise<any>[] = [];
 
-    for (let i = 0; i < cronCurrencies.length; i++) {
-      const currency = cronCurrencies[i];
+    for (let i = 0; i < this.cronCurrencies.length; i++) {
+      const currency = this.cronCurrencies[i];
       const prom = binance.prices({ symbol: currency });
       promises.push(prom);
     }
 
     return await Promise.all(promises);
+  }
+
+  private parseCurrencies(currString: string | undefined): string[] {
+    if (!currString) return [];
+    return currString.split(';');
   }
 }

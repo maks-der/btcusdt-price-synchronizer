@@ -1,8 +1,0 @@
-type Price {
-  cost: Int
-}
-
-type Query {
-  PriceHistory: [Price!]!
-  PriceHistory(id: Int!): Price
-}

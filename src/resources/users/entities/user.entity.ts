@@ -1,26 +1,24 @@
-import {
-  PrimaryGeneratedColumn,
-  Column,
-  Entity,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
-@Entity('prices')
-export class Price {
+@Entity('users')
+export class User {
   @Field()
   @PrimaryGeneratedColumn()
   public id: number;
 
   @Field()
-  @Column({ type: "float" })
-  public price: number;
+  @Column()
+  public fullName: string;
+
+  @Field()
+  @Column({ unique: true })
+  public email: string;
 
   @Field()
   @Column()
-  public currency: string;
+  public password: string;
 
   @Field()
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
@@ -29,12 +27,4 @@ export class Price {
   @Field()
   @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   public updatedAt: Date;
-
-  constructor(
-    currency: string,
-    price: number,
-  ) {
-    this.currency = currency;
-    this.price = price;
-  }
 }
