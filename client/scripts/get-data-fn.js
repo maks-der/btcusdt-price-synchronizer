@@ -1,4 +1,4 @@
-const getData = (curr, callback) => {
+async function getData (curr) {
   const apiUrl = '/graphql';
   const graphqlQuery = `query {
 	  current(currency: "${curr}"){
@@ -18,14 +18,10 @@ const getData = (curr, callback) => {
     Authorization: `Bearer ${localStorage.getItem('access_token')}`,
   };
 
-  fetchGraphQL(apiUrl, graphqlQuery, {}, headers)
-    .then((data) => {
-      console.log('Data received:', data);
-      callback(data);
-      // localStorage.setItem('access_token', data.login.accessToken);
-      // window.location.href = '/stats.html';
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-};
+  try {
+    return await fetchGraphQL(apiUrl, graphqlQuery, {}, headers);
+  } catch (err) {
+    console.error('Error:', err);
+    return null;
+  }
+}

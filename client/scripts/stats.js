@@ -1,52 +1,76 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async () => {
   if (!localStorage.getItem('access_token')) {
     window.location.href = '/';
   }
 
-  const currentCurrency ='BTCUSDT';
+  const btcData = await getData('BTCUSDT');
+  const dogeData = await getData('DOGEUSDT');
+  const apeData = await getData('APEUSDT');
 
-  getData(currentCurrency, (data) => {
+  console.log(btcData);
+  console.log(dogeData);
+  console.log(apeData);
 
-    console.log(data);
+  document.getElementById('btc-current').innerText = btcData.current.price;
+  document.getElementById('doge-current').innerText = dogeData.current.price;
+  document.getElementById('ape-current').innerText = apeData.current.price;
 
-    document.getElementById('current').innerText = data.current.price;
+  console.log(btcData.history)
 
-    console.log(data.history)
+  const btcHistory = btcData.history.map(item => item.price);
+  const dogeHistory = dogeData.history.map(item => item.price);
+  const apeHistory = apeData.history.map(item => item.price);
+  const labels = btcData.history.map(item => {
+    return new Date(item.createdAt).toLocaleString();
+  })
+  console.log(history)
+  const ctx = document.getElementById("line-chart").getContext("2d");
 
-    const history = data.history.map(item => item.price)
-    const labels = data.history.map(item => {
-      return new Date(item.createdAt).toLocaleString();
-    })
-    console.log(history)
-    const ctx = document.getElementById("line-chart").getContext("2d");
-
-    const config = {
-      labels: labels,
-      datasets: [
-        {
-          label: currentCurrency,
-          data: history,
-          fill: false,
-          borderColor: "#0074D9", // Line color
-          backgroundColor: "#f0f0f0", // Area below the line
-          tension: 0.4,
-        },
-      ],
-    };
-
-    const options = {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: false,
-        },
+  const config = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'BTCUSDT',
+        data: btcHistory,
+        fill: true,
+        borderColor: "#d9ae00",
+        backgroundColor: "rgba(217,174,0,0.1)",
+        tension: 0.4,
       },
-    };
+      {
+        label: 'DOGEUSDT',
+        data: dogeHistory,
+        fill: true,
+        borderColor: "#00d93d",
+        backgroundColor: "rgba(0,217,61,0.1)",
+        tension: 0.4,
+        hidden: true
+      },
+      {
+        label: 'APEUSDT',
+        data: apeHistory,
+        fill: true,
+        borderColor: "#0086d9",
+        backgroundColor: "rgba(0,134,217,0.1)",
+        tension: 0.4,
+        hidden: true
 
-    const chart = new Chart(ctx, {
-      type: "line",
-      data: config,
-      options: options,
-    });
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: false,
+      },
+    },
+  };
+
+  const chart = new Chart(ctx, {
+    type: "line",
+    data: config,
+    options: options,
   });
 });

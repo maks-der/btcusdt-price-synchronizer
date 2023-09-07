@@ -11,6 +11,10 @@ async function fetchGraphQL(url, query, variables = {}, headers = {}) {
   const data = await response.json();
 
   if (data.errors) {
+    if (data.errors[0]?.extensions?.originalError?.statusCode === 401) {
+      localStorage.removeItem('access_token');
+      window.location.href = '/'
+    }
     throw new Error(JSON.stringify(data.errors));
   }
 
