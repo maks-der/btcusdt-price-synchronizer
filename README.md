@@ -30,16 +30,13 @@ To run this project locally, you will need Node.js and npm installed on your mac
 
 3. Create a `.env` file in the project root or copy it from `example.env`:
 
-   ```
-   APP_PORT=3000
+   ```dotenv
+   PORT=3000
+   APP_ENV=dev
    CURRENCIES=BTCUSDT;DOGEUSDT;APEUSDT
    JWT_SECRET=jwt-secret-string
-
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USER=root
-   DB_PASS=secret
-   DB_NAME=price-synchronizer
+   
+   DATABASE_URL=postgresql://root:secret@localhost:5432/price-synchronizer
    ```
 
 4. Install dependencies:

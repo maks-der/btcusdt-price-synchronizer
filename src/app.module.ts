@@ -20,16 +20,17 @@ const configService = new ConfigService();
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: configService.get('DB_HOST'),
-      port: Number(configService.get('DB_PORT')),
-      username: configService.get('DB_USER'),
-      password: configService.get('DB_PASS'),
-      database: configService.get('DB_NAME'),
+      url: configService.get('DATABASE_URL'),
       entities: [
         Price,
         User,
       ],
       synchronize: true,
+      extra: {
+        ssl: configService.get('APP_ENV') === 'prod' ? {
+          rejectUnauthorized: false,
+        } : false,
+      },
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
